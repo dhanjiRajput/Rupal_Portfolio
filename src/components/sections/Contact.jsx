@@ -2,7 +2,8 @@ import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { socialLinks } from '../../data/portfolioData';
-import { FaEnvelope, FaLinkedin, FaDribbble, FaBehance, FaPaperPlane } from 'react-icons/fa';
+import { FaEnvelope, FaLinkedin, FaWhatsapp, FaPaperPlane, FaCheck } from 'react-icons/fa';
+import emailjs from '@emailjs/browser';
 
 const Contact = () => {
   const ref = useRef(null);
@@ -14,6 +15,7 @@ const Contact = () => {
     message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState('idle'); // idle, success, error
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -45,30 +47,52 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitStatus('idle');
 
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    try {
+      // EmailJS configuration
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID || 'YOUR_SERVICE_ID';
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'YOUR_TEMPLATE_ID';
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'YOUR_PUBLIC_KEY';
 
-    // Here you would normally send the form data to your backend
-    console.log('Form submitted:', formData);
+      // Send email using EmailJS
+      const response = await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          to_email: 'rupalirajput1727@gmail.com',
+        },
+        publicKey
+      );
 
-    // Reset form
-    setFormData({
-      name: '',
-      email: '',
-      subject: '',
-      message: '',
-    });
-    setIsSubmitting(false);
-
-    alert('Thank you for your message! I\'ll get back to you soon.');
+      if (response.status === 200) {
+        setSubmitStatus('success');
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: '',
+        });
+      } else {
+        throw new Error('Failed to send message');
+      }
+    } catch (error) {
+      console.error('Error sending message:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const getSocialIcon = (iconName) => {
     const icons = {
       linkedin: FaLinkedin,
-      dribbble: FaDribbble,
-      behance: FaBehance,
+      whatsapp: FaWhatsapp,
       mail: FaEnvelope,
     };
     return icons[iconName] || FaEnvelope;
@@ -175,6 +199,11 @@ const Contact = () => {
                   >
                     {isSubmitting ? (
                       <>Sending...</>
+                    ) : submitStatus === 'success' ? (
+                      <>
+                        <FaCheck />
+                        Message Sent!
+                      </>
                     ) : (
                       <>
                         <FaPaperPlane />
@@ -182,6 +211,27 @@ const Contact = () => {
                       </>
                     )}
                   </motion.button>
+
+                  {/* Status Messages */}
+                  {submitStatus === 'success' && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="p-4 bg-green-50 border border-green-200 rounded-lg text-green-700 text-center"
+                    >
+                      Thank you for your message! I'll get back to you soon.
+                    </motion.div>
+                  )}
+
+                  {submitStatus === 'error' && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-center"
+                    >
+                      Oops! Something went wrong. Please try again or contact me directly via email.
+                    </motion.div>
+                  )}
                 </form>
               </div>
             </motion.div>
@@ -202,8 +252,8 @@ const Contact = () => {
                     </div>
                     <div>
                       <div className="text-sm text-slate-600">Email</div>
-                      <a href="mailto:hello@rupalkidecha.com" className="text-slate-800 font-medium hover:text-blue-600 transition-colors">
-                        hello@rupalkidecha.com
+                      <a href="mailto:rupalirajput1727@gmail.com" className="text-slate-800 font-medium hover:text-blue-600 transition-colors">
+                        rupalirajput1727@gmail.com
                       </a>
                     </div>
                   </div>

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { FaArrowDown, FaLinkedin, FaDribbble, FaBehance } from 'react-icons/fa';
+import { FaArrowDown, FaLinkedin, FaWhatsapp } from 'react-icons/fa';
 
 const Hero = () => {
   const containerVariants = {
@@ -132,9 +132,8 @@ const Hero = () => {
           className="flex justify-center gap-6 mb-16"
         >
           {[
-            { icon: FaLinkedin, url: 'https://linkedin.com/in/rupalkidecha', label: 'LinkedIn' },
-            { icon: FaDribbble, url: 'https://dribbble.com/rupalkidecha', label: 'Dribbble' },
-            { icon: FaBehance, url: 'https://behance.net/rupalkidecha', label: 'Behance' },
+            { icon: FaLinkedin, url: 'https://www.linkedin.com/in/rupal-k-2b0629168', label: 'LinkedIn' },
+            { icon: FaWhatsapp, url: 'https://wa.me/919327506772', label: 'WhatsApp' },
           ].map((social) => (
             <motion.a
               key={social.label}

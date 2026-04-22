@@ -82,8 +82,7 @@ export const galleryItems = [
 ];
 
 export const socialLinks = [
-  { name: "LinkedIn", url: "https://linkedin.com/in/rupalkidecha", icon: "linkedin" },
-  { name: "Dribbble", url: "https://dribbble.com/rupalkidecha", icon: "dribbble" },
-  { name: "Behance", url: "https://behance.net/rupalkidecha", icon: "behance" },
-  { name: "Email", url: "mailto:hello@rupalkidecha.com", icon: "mail" },
+  { name: "LinkedIn", url: "https://www.linkedin.com/in/rupal-k-2b0629168", icon: "linkedin" },
+  { name: "WhatsApp", url: "https://wa.me/919327506772", icon: "whatsapp" },
+  { name: "Email", url: "mailto:rupalirajput1727@gmail.com", icon: "mail" },
 ];

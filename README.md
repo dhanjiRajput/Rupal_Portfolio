@@ -184,7 +184,7 @@ If you need to add environment variables:
 1. Go to Project Settings → Environment Variables
 2. Add your variables:
    ```
-   CONTACT_EMAIL=hello@rupalkidecha.com
+   CONTACT_EMAIL=rupalirajput1727@gmail.com
    ANALYTICS_ID=your-analytics-id
    ```
 
@@ -289,9 +289,8 @@ This project is open source and available under the MIT License.
 ## 👤 Author
 
 **Rupal Kidecha**
-- Website: [rupalkidecha.com](https://rupalkidecha.com)
-- LinkedIn: [linkedin.com/in/rupalkidecha](https://linkedin.com/in/rupalkidecha)
-- Dribbble: [dribbble.com/rupalkidecha](https://dribbble.com/rupalkidecha)
+- LinkedIn: [linkedin.com/in/rupal-k-2b0629168](https://www.linkedin.com/in/rupal-k-2b0629168)
+- Email: [rupalirajput1727@gmail.com](mailto:rupalirajput1727@gmail.com)
 
 ## 🙏 Acknowledgments
 
