@@ -20,13 +20,15 @@ export const skills = [
 export const projects = [
   {
     id: 1,
-    title: "E-Commerce Mobile App Redesign",
-    problem: "The existing e-commerce app had a 67% cart abandonment rate and confusing checkout flow.",
-    process: "Conducted user research with 15 participants, analyzed analytics data, and created user journey maps. Identified key pain points in the checkout process.",
-    solution: "Redesigned the checkout flow from 5 steps to 3, added progress indicators, improved form validation, and implemented a guest checkout option. Result: 45% increase in completed purchases.",
-    tools: ["Figma", "Principle", "UserTesting.com", "Google Analytics"],
-    image: "/api/placeholder/600/400",
-    tags: ["Mobile Design", "E-commerce", "UX Research"]
+    title: "Vasana - AI Wellness Platform",
+    problem: "Millions don't get proper mental health support. Systems miss hidden patterns in behavior and stress, leaving many without personalized care and early intervention.",
+    process: "Behavioral Data Collection: Tracks emotions, habits, stress patterns, and physical health signals. Behavioral Genome (Core Engine): Builds a 'Behavioral Genome' combining mental, behavioral, and physical health data. AI Analysis: AI analyzes data to detect patterns, predict risks, and identify trends. Personalized Recommendations: Generates custom care plans, exercises, and coaching suggestions. Continuous Feedback Loop: Daily check-ins track progress over time with AI-updated recommendations.",
+    solution: "Complete Health Understanding: Combines mind + body + behavior for a 360° health view. Personalized Therapeutics: Tailored exercises, guidance, and recovery plans. AI Wellness Coach (Huma): 24/7 assistant providing real-time advice, emotional support, and actionable steps. Insights Dashboard: Tracks mood trends, habits, and health indicators. Multi-Use Platform: Works for individuals, healthcare providers, enterprises, and public safety teams.",
+    tools: ["Figma", "User Research", "AI/UX Design", "Data Visualization", "Prototyping", "Wireframing"],
+    thumbnail: "/projects/Vasana/Thumbnail.png",
+    images: ["/projects/Vasana/Thumbnail.png", "/projects/Vasana/vasaan1.png"],
+    liveUrl: "https://vasana.ai/",
+    tags: ["AI/ML", "Healthcare", "Mental Health", "Wellness", "Dashboard Design"]
   },
   {
     id: 2,
@@ -71,14 +73,24 @@ export const projects = [
 ];
 
 export const galleryItems = [
-  { id: 1, title: "Mobile App UI", category: "Mobile", image: "/api/placeholder/400/300" },
-  { id: 2, title: "Dashboard Design", category: "Web", image: "/api/placeholder/400/300" },
-  { id: 3, title: "Brand Identity", category: "Branding", image: "/api/placeholder/400/300" },
-  { id: 4, title: "E-commerce Flow", category: "UX", image: "/api/placeholder/400/300" },
-  { id: 5, title: "Icon Set", category: "UI", image: "/api/placeholder/400/300" },
-  { id: 6, title: "Design System", category: "UI", image: "/api/placeholder/400/300" },
-  { id: 7, title: "Landing Page", category: "Web", image: "/api/placeholder/400/300" },
-  { id: 8, title: "User Research", category: "UX", image: "/api/placeholder/400/300" },
+  {
+    id: 1,
+    title: "Vasana AI Dashboard",
+    category: "Web",
+    image: "/projects/Vasana/Thumbnail.png",
+    description: "AI-powered wellness dashboard with behavioral insights and personalized recommendations",
+    liveUrl: "https://vasana.ai/"
+  },
+  {
+    id: 2,
+    title: "Vasana Mobile Interface",
+    category: "Mobile",
+    image: "/projects/Vasana/vasaan1.png",
+    description: "Mobile app design for mental health tracking and AI coaching",
+    liveUrl: "https://vasana.ai/"
+  },
+  // Add more gallery items here
+  // { id: 3, title: "Your Design", category: "Category", image: "/gallery/your-image.png", liveUrl: "https://your-project.com" },
 ];
 
 export const socialLinks = [

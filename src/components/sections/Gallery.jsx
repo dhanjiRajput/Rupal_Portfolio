@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { galleryItems } from '../../data/portfolioData';
-import { FaExpand } from 'react-icons/fa';
+import { FaExpand, FaExternalLinkAlt } from 'react-icons/fa';
 
 const Gallery = () => {
   const ref = useRef(null);
@@ -92,12 +92,20 @@ const Gallery = () => {
                 whileHover={{ y: -8 }}
                 onClick={() => setSelectedImage(item)}
               >
-                {/* Image Placeholder */}
-                <div className="absolute inset-0 bg-linear-to-br from-blue-100 to-purple-100">
-                  <div className="h-full flex items-center justify-center text-6xl">
-                    🎨
+                {/* Image */}
+                {item.image && !item.image.includes('/api/placeholder') ? (
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="absolute inset-0 bg-linear-to-br from-blue-100 to-purple-100">
+                    <div className="h-full flex items-center justify-center text-6xl">
+                      🎨
+                    </div>
                   </div>
-                </div>
+                )}
 
                 {/* Overlay */}
                 <motion.div
@@ -146,9 +154,19 @@ const Gallery = () => {
           >
             <div className="bg-white rounded-2xl overflow-hidden">
               {/* Image */}
-              <div className="aspect-video bg-linear-to-br from-blue-100 to-purple-100 flex items-center justify-center text-9xl">
-                🎨
-              </div>
+              {selectedImage.image && !selectedImage.image.includes('/api/placeholder') ? (
+                <div className="aspect-video bg-white">
+                  <img
+                    src={selectedImage.image}
+                    alt={selectedImage.title}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+              ) : (
+                <div className="aspect-video bg-linear-to-br from-blue-100 to-purple-100 flex items-center justify-center text-9xl">
+                  🎨
+                </div>
+              )}
 
               {/* Info */}
               <div className="p-6">
@@ -169,26 +187,22 @@ const Gallery = () => {
                 </div>
 
                 <p className="text-slate-600 mb-6">
-                  This design showcases my approach to {selectedImage.category.toLowerCase()} design,
-                  focusing on user experience, visual hierarchy, and modern aesthetics.
+                  {selectedImage.description || `This design showcases my approach to ${selectedImage.category.toLowerCase()} design, focusing on user experience, visual hierarchy, and modern aesthetics.`}
                 </p>
 
-                <div className="flex gap-4">
-                  <motion.button
-                    className="flex-1 py-3 bg-linear-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium hover:shadow-lg transition-all"
+                {selectedImage.liveUrl && (
+                  <motion.a
+                    href={selectedImage.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-3 bg-linear-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium hover:shadow-lg transition-all flex items-center justify-center gap-2"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
+                    <FaExternalLinkAlt />
                     View Full Project
-                  </motion.button>
-                  <motion.button
-                    className="px-6 py-3 border-2 border-slate-300 text-slate-700 rounded-lg font-medium hover:border-slate-400 hover:bg-slate-50 transition-all"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    Share
-                  </motion.button>
-                </div>
+                  </motion.a>
+                )}
               </div>
             </div>
           </motion.div>

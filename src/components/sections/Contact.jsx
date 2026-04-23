@@ -264,7 +264,14 @@ const Contact = () => {
                     </div>
                     <div>
                       <div className="text-sm text-slate-600">Location</div>
-                      <div className="text-slate-800 font-medium">India</div>
+                      <a
+                        href="https://www.google.com/maps/place/Surat,+Gujarat/@21.1591802,72.7398843,12z/data=!3m1!4b1!4m6!3m5!1s0x3be04e59411d1563:0xfe4558290938b042!8m2!3d21.1702401!4d72.8310607!16zL20vMDFoMWhu?authuser=0&entry=ttu"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-slate-800 font-medium hover:text-blue-600 transition-colors"
+                      >
+                        Surat, Gujarat, India
+                      </a>
                     </div>
                   </div>
 

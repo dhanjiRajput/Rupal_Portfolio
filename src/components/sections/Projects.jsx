@@ -1,13 +1,14 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { projects } from '../../data/portfolioData';
-import { FaExternalLinkAlt, FaGithub, FaTimes } from 'react-icons/fa';
+import { FaExternalLinkAlt, FaTimes } from 'react-icons/fa';
 
 const Projects = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
   const [selectedProject, setSelectedProject] = useState(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -27,6 +28,13 @@ const Projects = () => {
       transition: { duration: 0.6, ease: 'easeOut' },
     },
   };
+
+  // Reset image index when project changes
+  useEffect(() => {
+    if (selectedProject) {
+      setCurrentImageIndex(0);
+    }
+  }, [selectedProject]);
 
   return (
     <section id="projects" className="section-padding bg-white/50" ref={ref}>
@@ -60,14 +68,24 @@ const Projects = () => {
               >
                 {/* Project Image */}
                 <div className="relative h-48 bg-linear-to-br from-blue-100 to-purple-100 overflow-hidden">
-                  <motion.div
-                    className="absolute inset-0 bg-linear-to-br from-blue-600/20 to-purple-600/20"
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ duration: 0.3 }}
-                  />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-6xl">🎨</span>
-                  </div>
+                  {project.thumbnail ? (
+                    <img
+                      src={project.thumbnail}
+                      alt={project.title}
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <>
+                      <motion.div
+                        className="absolute inset-0 bg-linear-to-br from-blue-600/20 to-purple-600/20"
+                        whileHover={{ scale: 1.1 }}
+                        transition={{ duration: 0.3 }}
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="text-6xl">🎨</span>
+                      </div>
+                    </>
+                  )}
                   {/* Tags */}
                   <div className="absolute top-4 left-4 flex flex-wrap gap-2">
                     {project.tags.map((tag) => (
@@ -141,7 +159,10 @@ const Projects = () => {
             <div className="sticky top-0 bg-white border-b border-slate-200 p-6 flex justify-between items-center z-10">
               <h3 className="text-2xl font-bold text-slate-800">{selectedProject.title}</h3>
               <motion.button
-                onClick={() => setSelectedProject(null)}
+                onClick={() => {
+                  setSelectedProject(null);
+                  setCurrentImageIndex(0);
+                }}
                 className="text-slate-600 hover:text-slate-800 transition-colors"
                 whileHover={{ rotate: 90 }}
               >
@@ -151,12 +172,52 @@ const Projects = () => {
 
             {/* Modal Content */}
             <div className="p-6 space-y-6">
-              {/* Project Image */}
-              <div className="aspect-video bg-linear-to-br from-blue-100 to-purple-100 rounded-xl overflow-hidden">
-                <div className="h-full flex items-center justify-center text-8xl">
-                  🎨
+              {/* Project Images */}
+              {selectedProject.images && selectedProject.images.length > 0 ? (
+                <div className="relative">
+                  <div className="aspect-video bg-linear-to-br from-blue-100 to-purple-100 rounded-xl overflow-hidden">
+                    <img
+                      src={selectedProject.images[currentImageIndex]}
+                      alt={`${selectedProject.title} - Image ${currentImageIndex + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  {/* Image Navigation */}
+                  {selectedProject.images.length > 1 && (
+                    <>
+                      <button
+                        onClick={() => setCurrentImageIndex((prev) => (prev === 0 ? selectedProject.images.length - 1 : prev - 1))}
+                        className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-all"
+                      >
+                        ←
+                      </button>
+                      <button
+                        onClick={() => setCurrentImageIndex((prev) => (prev === selectedProject.images.length - 1 ? 0 : prev + 1))}
+                        className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg hover:bg-white transition-all"
+                      >
+                        →
+                      </button>
+                      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                        {selectedProject.images.map((_, idx) => (
+                          <button
+                            key={idx}
+                            onClick={() => setCurrentImageIndex(idx)}
+                            className={`w-2 h-2 rounded-full transition-all ${
+                              idx === currentImageIndex ? 'bg-white scale-125' : 'bg-white/50'
+                            }`}
+                          />
+                        ))}
+                      </div>
+                    </>
+                  )}
                 </div>
-              </div>
+              ) : (
+                <div className="aspect-video bg-linear-to-br from-blue-100 to-purple-100 rounded-xl overflow-hidden">
+                  <div className="h-full flex items-center justify-center text-8xl">
+                    🎨
+                  </div>
+                </div>
+              )}
 
               {/* Tags */}
               <div className="flex flex-wrap gap-2">
@@ -174,17 +235,17 @@ const Projects = () => {
               <div className="space-y-6">
                 <div>
                   <h4 className="text-lg font-semibold text-slate-800 mb-2">🎯 Problem</h4>
-                  <p className="text-slate-600">{selectedProject.problem}</p>
+                  <p className="text-slate-600 whitespace-pre-line">{selectedProject.problem}</p>
                 </div>
 
                 <div>
                   <h4 className="text-lg font-semibold text-slate-800 mb-2">🔍 Process</h4>
-                  <p className="text-slate-600">{selectedProject.process}</p>
+                  <p className="text-slate-600 whitespace-pre-line">{selectedProject.process}</p>
                 </div>
 
                 <div>
                   <h4 className="text-lg font-semibold text-slate-800 mb-2">💡 Solution</h4>
-                  <p className="text-slate-600">{selectedProject.solution}</p>
+                  <p className="text-slate-600 whitespace-pre-line">{selectedProject.solution}</p>
                 </div>
 
                 <div>
@@ -203,24 +264,21 @@ const Projects = () => {
               </div>
 
               {/* Action Buttons */}
-              <div className="flex gap-4 pt-4">
-                <motion.button
-                  className="flex-1 py-3 bg-linear-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium hover:shadow-lg transition-all flex items-center justify-center gap-2"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <FaExternalLinkAlt />
-                  View Live Project
-                </motion.button>
-                <motion.button
-                  className="flex-1 py-3 border-2 border-slate-300 text-slate-700 rounded-lg font-medium hover:border-slate-400 hover:bg-slate-50 transition-all flex items-center justify-center gap-2"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <FaGithub />
-                  View Process
-                </motion.button>
-              </div>
+              {selectedProject.liveUrl && (
+                <div className="pt-4">
+                  <motion.a
+                    href={selectedProject.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-3 bg-linear-to-r from-blue-600 to-purple-600 text-white rounded-lg font-medium hover:shadow-lg transition-all flex items-center justify-center gap-2"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <FaExternalLinkAlt />
+                    View Live Project
+                  </motion.a>
+                </div>
+              )}
             </div>
           </motion.div>
         </motion.div>
