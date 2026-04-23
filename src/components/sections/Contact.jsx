@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { socialLinks } from '../../data/portfolioData';
-import { FaEnvelope, FaLinkedin, FaWhatsapp, FaPaperPlane, FaCheck } from 'react-icons/fa';
+import { FaEnvelope, FaLinkedin, FaWhatsapp, FaPaperPlane, FaCheck, FaMapMarkerAlt, FaBriefcase } from 'react-icons/fa';
 import emailjs from '@emailjs/browser';
 
 const Contact = () => {
@@ -260,7 +260,7 @@ const Contact = () => {
 
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 bg-linear-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-                      📍
+                      <FaMapMarkerAlt className="text-white text-xl" />
                     </div>
                     <div>
                       <div className="text-sm text-slate-600">Location</div>
@@ -277,7 +277,7 @@ const Contact = () => {
 
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 bg-linear-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-                      💼
+                      <FaBriefcase className="text-white text-xl" />
                     </div>
                     <div>
                       <div className="text-sm text-slate-600">Status</div>
@@ -288,7 +288,7 @@ const Contact = () => {
               </div>
 
               {/* Social Links */}
-              <div className="bg-linear-to-br from-blue-600 to-purple-600 rounded-2xl p-8 text-white">
+              <div className="bg-linear-to-br from-blue-600 to-purple-600 rounded-2xl p-12 text-white">
                 <h3 className="text-2xl font-bold mb-6">Follow Me</h3>
                 <div className="grid grid-cols-2 gap-4">
                   {socialLinks.map((social) => {
@@ -310,19 +310,26 @@ const Contact = () => {
                   })}
                 </div>
               </div>
-
-              {/* Quick Info */}
-              <div className="bg-white rounded-2xl p-6 shadow-lg">
-                <div className="flex items-center gap-4">
-                  <div className="text-4xl">⏰</div>
-                  <div>
-                    <div className="text-sm text-slate-600">Response Time</div>
-                    <div className="text-slate-800 font-medium">Usually within 24-48 hours</div>
-                  </div>
-                </div>
-              </div>
             </motion.div>
           </div>
+
+          {/* Quick Info - Centered */}
+          <motion.div
+            variants={itemVariants}
+            className="mt-12 max-w-lg mx-auto"
+          >
+            <div className="bg-white rounded-2xl p-6 shadow-lg">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-linear-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+                  <FaEnvelope className="text-white text-xl" />
+                </div>
+                <div>
+                  <div className="text-sm text-slate-600">Response Time</div>
+                  <div className="text-slate-800 font-medium">Usually within 24-48 hours</div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </motion.div>
       </div>
     </section>
