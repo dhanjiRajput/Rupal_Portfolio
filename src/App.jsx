@@ -7,23 +7,28 @@ import Projects from './components/sections/Projects';
 import Gallery from './components/sections/Gallery';
 import Contact from './components/sections/Contact';
 import Footer from './components/Footer';
+import DarkModeToggle from './components/DarkModeToggle';
+import { DarkModeProvider } from './contexts/DarkModeContext';
 
 function App() {
   return (
-    <Router>
-      <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-purple-50">
-        <Navbar />
-        <main>
-          <Hero />
-          <About />
-          <Skills />
-          <Projects />
-          <Gallery />
-          <Contact />
-        </main>
-        <Footer />
-      </div>
-    </Router>
+    <DarkModeProvider>
+      <Router>
+        <div className="min-h-screen bg-linear-to-br from-slate-50 via-blue-50 to-purple-50">
+          <Navbar />
+          <DarkModeToggle />
+          <main>
+            <Hero />
+            <About />
+            <Skills />
+            <Projects />
+            <Gallery />
+            <Contact />
+          </main>
+          <Footer />
+        </div>
+      </Router>
+    </DarkModeProvider>
   );
 }
 
